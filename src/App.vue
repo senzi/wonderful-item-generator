@@ -17,7 +17,7 @@
         <el-radio-button
           v-for="theme in themes"
           :key="theme.id"
-          :label="theme.id"
+          :value="theme.id"
         >
           {{ theme.name }}
         </el-radio-button>
@@ -152,13 +152,12 @@ html, body {
 }
 
 .input-area {
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
   display: flex;
   gap: 12px;
   padding: 20px 0;
-  background-color: #f5f7fa;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .input-area :deep(.el-textarea__inner) {

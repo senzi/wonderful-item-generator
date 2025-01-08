@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 宝箱底部 -->
+  <path d="M4 12H28V26H4V12Z" fill="#8B5E3C"/>
+  
+  <!-- 宝箱盖子 -->
+  <path d="M2 8H30L28 12H4L2 8Z" fill="#A67C52"/>
+  
+  <!-- 宝箱锁扣 -->
+  <rect x="14" y="14" width="4" height="6" fill="#FFD700"/>
+  
+  <!-- 魔法星星 -->
+  <path d="M8 6L9 4L10 6L8 5L8 7L8 6Z" fill="#FFD700">
+    <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <path d="M24 6L25 4L26 6L24 5L24 7L24 6Z" fill="#FFD700">
+    <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+  </path>
+  
+  <!-- 光芒效果 -->
+  <circle cx="16" cy="17" r="8" fill="#FFD700" opacity="0.2">
+    <animate attributeName="r" values="8;10;8" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.2;0.1;0.2" dur="3s" repeatCount="indefinite"/>
+  </circle>
+</svg>

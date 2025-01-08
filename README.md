@@ -1,5 +1,44 @@
-# Vue 3 + Vite
+# 奇妙物品生成器
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+一个基于LLM API的奇妙物品生成器Web应用。用户通过简单的文本输入，选择不同主题，生成具有特定风格的奇妙物品描述。生成的内容可以导出为精美的图片格式。
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## 功能特点
+
+- 支持多种主题：奇幻、科幻、现代、古代
+- 支持多个LLM供应商：Moonshot、Deepseek、Gemini等
+- 生成结果导出为PNG图片
+- 响应式设计，支持移动端
+- 配置本地持久化
+
+## 快速开始
+
+1. 安装依赖
+```bash
+npm install
+```
+
+2. 启动开发服务器
+```bash
+npm run dev
+```
+
+3. 构建生产版本
+```bash
+npm run build
+```
+
+## 技术栈
+
+- Vue 3
+- Vite
+- Element Plus
+- Pinia
+- HTML2Canvas
+
+## 使用说明
+
+1. 首次使用需要在设置中配置API参数（点击右上角设置按钮）
+2. 选择想要的物品主题
+3. 在输入框中描述你想要的物品
+4. 点击生成按钮
+5. 可以点击右上角下载按钮将生成结果保存为图片
