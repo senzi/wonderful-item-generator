@@ -53,6 +53,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Setting } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 import { useThemeStore } from './stores/theme'
 import { useConfigStore } from './stores/config'
 import { generateItem as callGenerateApi } from './api/generator'

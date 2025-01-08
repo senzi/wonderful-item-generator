@@ -81,7 +81,7 @@ const providers = {
   },
   moonshot: {
     baseUrl: 'https://api.moonshot.cn/v1',
-    model: 'moonshot-v1-8k'
+    model: 'moonshot-v1-auto'
   },
   deepseek: {
     baseUrl: 'https://api.deepseek.com/v1',
@@ -131,7 +131,12 @@ const loadConfig = () => {
 const saveConfig = () => {
   formRef.value.validate((valid) => {
     if (valid) {
-      configStore.setApiConfig(form.value)
+      const config = {
+        ...form.value,
+        provider: selectedProvider.value,
+        providers: configStore.apiConfig.providers
+      }
+      configStore.setApiConfig(config)
       dialogVisible.value = false
       ElMessage.success('配置已保存')
     } else {

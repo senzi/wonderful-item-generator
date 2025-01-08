@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 const createApi = (config) => {
   const instance = axios.create({
@@ -26,7 +27,7 @@ export const generateItem = async (config, theme, prompt) => {
   const systemPrompt = getSystemPrompt(theme)
   
   try {
-    const response = await api.post('', {
+    const response = await api.post('/chat/completions', {
       model: config.model,
       messages: [
         { role: 'system', content: systemPrompt },
@@ -34,7 +35,9 @@ export const generateItem = async (config, theme, prompt) => {
       ],
       response_format: { type: "json_object" }
     })
-    return response
+    // 解析返回的JSON字符串
+    const jsonContent = JSON.parse(response.choices[0].message.content)
+    return jsonContent
   } catch (error) {
     console.error('生成失败:', error)
     throw error
