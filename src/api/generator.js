@@ -11,13 +11,13 @@ JSON格式的物品信息包含以下字段：
   "tags": ["标签1", "标签2"], // 2-3个特征标签
   "description": "物品的简短描述",
   "appearance": "物品的外观描述",
-  "properties": "物品的特性和功能描述",
-  "origin": "物品的来源或历史背景",
+  "properties": "详细物品的特性和功能或者内容",
+  "origin": "详细描述物品的来源或历史背景",
   "restrictions": "使用限制（可选）",
   "quote": "相关引述或谚语（可选）"
 }
 
-JSON示例：
+JSON示例，但实际上字数可以按需详尽：
 {
   "name": "晨星之泪",
   "type": "饰品",
@@ -81,7 +81,7 @@ export const generateItem = async (config, theme, prompt) => {
             { role: 'system', content: systemPrompt },
             { role: 'user', content: prompt }
           ],
-          temperature: 0.5,
+          temperature: 1.5,
           max_tokens: 2000,
           response_format: { type: 'json_object' }
         })
