@@ -6,7 +6,7 @@
           <el-button
             class="download-btn"
             type="primary"
-            :icon="Download"
+            :icon="IconDownload"
             circle
             @click="exportImage"
           />
@@ -62,11 +62,14 @@
               <div class="model-detail">
                 由 <span class="model-name">{{ modelInfo }}</span> 提供
               </div>
+              <div class="website-info">
+                访问 <span class="website-link">forge.closeai.moe</span> 创建你的奇妙物品
+              </div>
             </div>
           </div>
         </div>
         <div v-else class="empty-state">
-          <el-icon class="empty-icon"><Box /></el-icon>
+          <el-icon class="empty-icon"><IconBox /></el-icon>
           <p>输入提示词生成奇妙物品</p>
         </div>
       </div>
@@ -76,7 +79,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { Download, Box } from '@element-plus/icons-vue'
+import { Download as IconDownload, Box as IconBox } from '@element-plus/icons-vue'
 import { toPng } from 'html-to-image'
 import { useConfigStore } from '../stores/config'
 import { useThemeStore } from '../stores/theme'
@@ -298,6 +301,20 @@ const exportImage = async () => {
 
 .model-detail {
   color: #666;
+}
+
+.website-info {
+  margin-top: 4px;
+  color: #888;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.website-link {
+  color: #4a9eff;
+  font-family: 'Fira Code', monospace;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .empty-state {

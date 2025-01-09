@@ -7,7 +7,7 @@
           <h1>奇妙物品生成器 <span class="subtitle">Wonderful Item Generator</span></h1>
           <el-button
             class="setting-btn"
-            :icon="Setting"
+            :icon="IconSetting"
             circle
             @click="showConfig = true"
           />
@@ -63,7 +63,7 @@
         <div class="footer-content">
           <div class="footer-links">
             <a href="https://github.com/senzi/wonderful-item-generator" target="_blank">
-              <el-icon><Platform /></el-icon>
+              <el-icon><IconPlatform /></el-icon>
               GitHub
             </a>
             <span class="divider">|</span>
@@ -79,7 +79,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { Setting, Platform } from '@element-plus/icons-vue'
+import { Setting as IconSetting, Platform as IconPlatform } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 import { useThemeStore } from './stores/theme'
 import { useConfigStore } from './stores/config'
 import { useItemsStore } from './stores/items'

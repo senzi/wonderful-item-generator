@@ -5,17 +5,18 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   build: {
-    chunkSizeWarningLimit: 1000, // 提高警告阈值到1000kb
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'element-plus': ['element-plus'],
-          'vendor': [
-            'vue',
-            'pinia',
-            'axios',
-            'html2canvas'
-          ]
+        manualChunks: (id) => {
+          // element-plus 相关的单独打包
+          if (id.includes('node_modules/element-plus') || id.includes('node_modules/@element-plus')) {
+            return 'element-plus'
+          }
+          // 其他第三方库打包到 vendor
+          if (id.includes('node_modules')) {
+            return 'vendor'
+          }
         }
       }
     }
