@@ -5,7 +5,7 @@ export const useThemeStore = defineStore('theme', {
     currentTheme: 'reverse', // 默认主题
     themes: [
       { id: 'reverse', name: '弄假成真' },
-      { id: 'wasteland', name: '废土寻迹' },
+      { id: 'wasteland', name: '萌系物语' },
       { id: 'curse', name: '诡秘诅咒' },
       { id: 'wuxia', name: '江湖逸闻' },
       { id: 'steampunk', name: '蒸汽魅影' }
