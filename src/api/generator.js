@@ -57,19 +57,38 @@ export const generateItem = async (config, theme, prompt) => {
   const systemPrompt = getSystemPrompt(theme)
   
   try {
-    const response = await api.post('/chat/completions', {
-      model: config.model,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: prompt }
-      ],
-      response_format: { type: "json_object" }
-    })
-    // 解析返回的JSON字符串
-    const jsonContent = JSON.parse(response.choices[0].message.content)
-    return jsonContent
+    let response
+    
+    // 根据不同的提供商使用不同的请求格式
+    switch (config.provider) {
+      case 'gemini':
+        response = await api.post('/models/' + config.model + ':generateContent', {
+          contents: [{
+            role: 'user',
+            parts: [{ text: systemPrompt + '\n' + prompt }]
+          }]
+        })
+        // 解析 Gemini 响应
+        return JSON.parse(response.candidates[0].content.parts[0].text)
+      
+      case 'deepseek':
+      case 'moonshot':
+      default:
+        // OpenAI 兼容格式
+        response = await api.post('/chat/completions', {
+          model: config.model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: prompt }
+          ],
+          temperature: 0.7,
+          max_tokens: 1000
+        })
+        // 解析 OpenAI 兼容格式响应
+        return JSON.parse(response.choices[0].message.content)
+    }
   } catch (error) {
-    console.error('生成失败:', error)
+    console.error('生成物品失败:', error)
     throw error
   }
 }

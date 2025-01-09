@@ -104,7 +104,22 @@ const modelInfo = computed(() => {
 
 const exportImage = async () => {
   if (!wrapperRef.value) return
-  
+
+  // 创建一个临时的样式元素
+  const style = document.createElement('style')
+  style.textContent = `
+    .item-card {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif !important;
+    }
+    .item-card * {
+      font-family: inherit !important;
+    }
+    .model-name, .website-link {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    }
+  `
+  document.head.appendChild(style)
+
   try {
     // 暂时隐藏下载按钮
     const downloadBtn = wrapperRef.value.querySelector('.download-btn')
@@ -112,16 +127,25 @@ const exportImage = async () => {
       downloadBtn.style.display = 'none'
     }
 
-    const dataUrl = await toPng(wrapperRef.value, {
+    // 等待样式应用
+    await new Promise(resolve => setTimeout(resolve, 50))
+
+    const options = {
       backgroundColor: '#ffffff',
       quality: 1.0,
-      pixelRatio: 2
-    })
-
-    // 恢复下载按钮显示
-    if (downloadBtn) {
-      downloadBtn.style.display = ''
+      pixelRatio: 2,
+      skipFonts: true,
+      fontEmbedCSS: '',
+      filter: (node) => {
+        // 过滤掉外部字体链接
+        if (node.tagName === 'LINK' && node.getAttribute('rel') === 'stylesheet') {
+          return false
+        }
+        return true
+      }
     }
+
+    const dataUrl = await toPng(wrapperRef.value, options)
 
     // 下载图片
     const link = document.createElement('a')
@@ -130,6 +154,15 @@ const exportImage = async () => {
     link.click()
   } catch (error) {
     console.error('导出图片失败:', error)
+  } finally {
+    // 清理临时样式
+    document.head.removeChild(style)
+    
+    // 恢复下载按钮
+    const downloadBtn = wrapperRef.value?.querySelector('.download-btn')
+    if (downloadBtn) {
+      downloadBtn.style.display = ''
+    }
   }
 }
 </script>
