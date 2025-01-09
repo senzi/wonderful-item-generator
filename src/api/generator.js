@@ -81,8 +81,9 @@ export const generateItem = async (config, theme, prompt) => {
             { role: 'system', content: systemPrompt },
             { role: 'user', content: prompt }
           ],
-          temperature: 0.7,
-          max_tokens: 1000
+          temperature: 0.5,
+          max_tokens: 2000,
+          response_format: { type: 'json_object' }
         })
         // 解析 OpenAI 兼容格式响应
         return JSON.parse(response.choices[0].message.content)
