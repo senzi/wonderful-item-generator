@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 
 // JSON 格式定义和示例
 const jsonFormat = `
-生成的物品信息需要包含以下字段：
+JSON格式的物品信息包含以下字段：
 {
   "name": "物品名称",
   "type": "物品类型，如：武器、防具、饰品、工具等",
@@ -17,7 +17,7 @@ const jsonFormat = `
   "quote": "相关引述或谚语（可选）"
 }
 
-示例：
+JSON示例：
 {
   "name": "晨星之泪",
   "type": "饰品",
@@ -95,7 +95,7 @@ export const generateItem = async (config, theme, prompt) => {
 }
 
 const getSystemPrompt = (theme) => {
-  const basePrompt = `你是一个物品描述生成器。请根据用户的描述生成一个详细的物品信息。${jsonFormat}\n\n`
+  const basePrompt = `你是一个物品描述生成器。请根据用户的描述生成一个详细的物品信息，并以 JSON 格式返回。${jsonFormat}\n\n`
 
   const prompts = {
     reverse: `${basePrompt}主题：反向期望。
