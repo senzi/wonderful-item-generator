@@ -137,6 +137,24 @@ html, body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'LXGW WenKai', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: inherit;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
 }
 </style>
 
@@ -144,6 +162,8 @@ html, body {
 .app-wrapper {
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #e4e7ed 100%);
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .app-container {
@@ -175,6 +195,22 @@ html, body {
   font-weight: 600;
 }
 
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 16px;
+  }
+
+  .header-content h1 {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+  }
+}
+
 .subtitle {
   font-size: 0.6em;
   color: rgba(255, 255, 255, 0.7);
@@ -204,6 +240,17 @@ html, body {
   flex-wrap: wrap;
 }
 
+@media (max-width: 768px) {
+  .theme-options {
+    gap: 8px;
+  }
+
+  .theme-option {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
 .theme-option {
   padding: 8px 16px;
   border-radius: 20px;
@@ -226,7 +273,7 @@ html, body {
 }
 
 .input-area {
-  width: 100%;
+  width: calc(100% - 48px);  /* 减去左右padding */
   max-width: 600px;
   margin: 0 auto;
   display: flex;
@@ -237,6 +284,49 @@ html, body {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    width: 100%;
+    min-height: 100vh;
+    box-shadow: none;
+  }
+
+  .main-content {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .theme-selector,
+  .input-area {
+    width: calc(100% - 32px);  /* 减去左右padding */
+    padding: 16px;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+
+  .input-area :deep(.el-textarea__inner) {
+    font-size: 14px;
+  }
+
+  .generate-btn {
+    width: 100%;
+    max-width: 300px;  /* 限制按钮最大宽度 */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .divider {
+    display: none;
+  }
 }
 
 .setting-btn {
@@ -259,6 +349,11 @@ html, body {
   border-color: #2c3e50;
   color: white;
   transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.generate-btn:deep(.el-button__text) {
+  font-family: inherit;
 }
 
 .generate-btn:hover {

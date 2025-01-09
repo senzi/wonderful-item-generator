@@ -145,8 +145,42 @@ const exportImage = async () => {
   padding: 40px;
   background-color: #ffffff;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .card-wrapper {
+    padding: 24px;
+    gap: 16px;
+    border-radius: 8px;
+  }
+
+  .item-tags {
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 0 8px;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  .item-description {
+    font-size: 14px;
+  }
+
+  .item-quote {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .info-text {
+    font-size: 12px;
+  }
 }
 
 .item-card {
