@@ -6,13 +6,25 @@
       @row-click="handleRowClick"
       :empty-text="'物品栏空空如也...'"
     >
-      <el-table-column prop="name" label="物品名称" min-width="200">
+      <el-table-column 
+        prop="name" 
+        label="物品名称" 
+        min-width="40%"
+        align="center"
+        header-align="center"
+      >
         <template #default="{ row }">
           <span class="item-name">{{ row.name }}</span>
         </template>
       </el-table-column>
       
-      <el-table-column prop="theme" label="主题" min-width="120">
+      <el-table-column 
+        prop="theme" 
+        label="主题" 
+        min-width="25%"
+        align="center"
+        header-align="center"
+      >
         <template #default="{ row }">
           <span class="theme-name">
             {{ themeStore.themes.find(t => t.id === row.theme)?.name }}
@@ -20,13 +32,25 @@
         </template>
       </el-table-column>
       
-      <el-table-column prop="model" label="模型" min-width="150">
+      <el-table-column 
+        prop="model" 
+        label="模型" 
+        min-width="25%"
+        align="center"
+        header-align="center"
+      >
         <template #default="{ row }">
           <span class="model-name">{{ row.model }}</span>
         </template>
       </el-table-column>
       
-      <el-table-column label="操作" width="120" fixed="right">
+      <el-table-column 
+        label="操作" 
+        width="100"
+        fixed="right"
+        align="center"
+        header-align="center"
+      >
         <template #default="{ row, $index }">
           <el-popconfirm
             title="确定要销毁这件物品吗？"
