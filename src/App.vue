@@ -51,6 +51,9 @@
           </el-button>
         </div>
 
+        <!-- 物品栏 -->
+        <item-inventory @select="handleItemSelect" />
+
         <!-- 配置对话框 -->
         <config-dialog v-model="showConfig" />
       </main>
@@ -77,15 +80,17 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Setting, Platform } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
 import { useThemeStore } from './stores/theme'
 import { useConfigStore } from './stores/config'
+import { useItemsStore } from './stores/items'
 import { generateItem as callGenerateApi } from './api/generator'
 import ConfigDialog from './components/ConfigDialog.vue'
 import ItemCard from './components/ItemCard.vue'
+import ItemInventory from './components/ItemInventory.vue'
 
 const themeStore = useThemeStore()
 const configStore = useConfigStore()
+const itemsStore = useItemsStore()
 
 const showConfig = ref(false)
 const prompt = ref('')
@@ -121,11 +126,22 @@ const generateItem = async () => {
       prompt.value
     )
     generatedItem.value = result
+    // 添加到物品栏
+    itemsStore.addItem({
+      ...result,
+      theme: currentTheme.value,
+      model: config.model
+    })
   } catch (error) {
     console.error('生成失败:', error)
   } finally {
     generating.value = false
   }
+}
+
+// 选择物品栏中的物品
+const handleItemSelect = (item) => {
+  generatedItem.value = item
 }
 
 // 初始化时加载配置
