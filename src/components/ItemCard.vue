@@ -10,21 +10,59 @@
             circle
             @click="exportImage"
           />
-          <h2 class="item-name">{{ item.name }}</h2>
-          <p class="item-description">{{ item.description }}</p>
-          <div class="item-properties">
-            <el-tag
-              v-for="(prop, index) in item.properties"
-              :key="index"
-              class="property-tag"
-              effect="light"
-            >
-              {{ prop }}
-            </el-tag>
+          <div class="item-header">
+            <span class="item-rarity">[{{ item.rarity }}]</span>
+            <h3 class="item-name">{{ item.name }}</h3>
+            <div class="item-type">{{ item.type }}</div>
+            <div class="item-tags">
+              <el-tag
+                v-for="tag in item.tags"
+                :key="tag"
+                class="tag"
+                effect="dark"
+              >
+                {{ tag }}
+              </el-tag>
+            </div>
           </div>
+
+          <div class="item-description">
+            {{ item.description }}
+          </div>
+
+          <div class="item-details">
+            <div class="detail-row">
+              <span class="detail-label">外观:</span>
+              <span>{{ item.appearance }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">特性:</span>
+              <span>{{ item.properties }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">来源:</span>
+              <span>{{ item.origin }}</span>
+            </div>
+            <div class="detail-row" v-if="item.restrictions">
+              <span class="detail-label">限制:</span>
+              <span>{{ item.restrictions }}</span>
+            </div>
+          </div>
+
+          <div class="item-quote" v-if="item.quote">
+            {{ item.quote }}
+          </div>
+
           <div class="model-info">
             <div class="divider"></div>
-            <p class="model-text">该物品描述由 {{ modelInfo }} 提供</p>
+            <div class="info-text">
+              <div class="theme-info">
+                {{ themeStore.themes.find(t => t.id === themeStore.currentTheme)?.name }} 主题创作
+              </div>
+              <div class="model-detail">
+                由 <span class="model-name">{{ modelInfo }}</span> 提供
+              </div>
+            </div>
           </div>
         </div>
         <div v-else class="empty-state">
@@ -41,8 +79,10 @@ import { ref, computed } from 'vue'
 import { Download, Box } from '@element-plus/icons-vue'
 import { toPng } from 'html-to-image'
 import { useConfigStore } from '../stores/config'
+import { useThemeStore } from '../stores/theme'
 
 const configStore = useConfigStore()
+const themeStore = useThemeStore()
 
 const props = defineProps({
   item: {
@@ -101,7 +141,7 @@ const exportImage = async () => {
 
 .card-wrapper {
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
   padding: 40px;
   background-color: #ffffff;
   display: flex;
@@ -110,70 +150,120 @@ const exportImage = async () => {
 }
 
 .item-card {
-  position: relative;
   width: calc(100% - 80px);
   min-height: 200px;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
   padding: 30px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #1a1a1a;
+  color: #e0e0e0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
   display: flex;
   flex-direction: column;
-}
-
-.item-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  flex: 1;
 }
 
 .download-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 10;
+  top: 12px;
+  right: 12px;
+}
+
+.item-header {
+  margin-bottom: 12px;
 }
 
 .item-name {
+  font-size: 1.2em;
+  font-weight: bold;
   margin: 0;
-  font-size: 24px;
-  font-weight: 600;
-  color: #303133;
+  display: inline;
+  margin-left: 6px;
+}
+
+.item-rarity {
+  color: #ffd700;
+  font-size: 0.9em;
+}
+
+.item-type {
+  color: #888;
+  font-size: 0.9em;
+  margin-top: 4px;
+}
+
+.item-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.tag {
+  background: #333;
 }
 
 .item-description {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #606266;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  padding: 12px 0;
+  margin: 12px 0;
+  line-height: 1.4;
 }
 
-.item-properties {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.item-details {
+  font-size: 0.9em;
 }
 
-.property-tag {
-  font-size: 14px;
+.detail-row {
+  margin: 8px 0;
+}
+
+.detail-label {
+  color: #888;
+  margin-right: 8px;
+}
+
+.item-quote {
+  font-style: italic;
+  color: #888;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #333;
 }
 
 .model-info {
-  margin-top: 20px;
+  margin-top: 16px;
   text-align: center;
 }
 
 .divider {
   height: 1px;
-  background-color: #DCDFE6;
+  background: #333;
   margin-bottom: 12px;
 }
 
-.model-text {
-  margin: 0;
-  font-size: 12px;
-  color: #909399;
+.info-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #666;
+  font-size: 0.8em;
+}
+
+.theme-info {
+  color: #888;
+}
+
+.model-name {
+  color: #4a9eff;
+  font-family: 'Fira Code', monospace;
+  font-weight: 500;
+}
+
+.model-detail {
+  color: #666;
 }
 
 .empty-state {
