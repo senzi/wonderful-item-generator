@@ -43,9 +43,9 @@
               <span class="detail-label">来源:</span>
               <span>{{ item.origin }}</span>
             </div>
-            <div class="detail-row" v-if="item.restrictions">
-              <span class="detail-label">限制:</span>
-              <span>{{ item.restrictions }}</span>
+            <div class="detail-row" v-if="item.storyline">
+              <span class="detail-label">故事:</span>
+              <span>{{ item.storyline }}</span>
             </div>
           </div>
 
@@ -61,9 +61,6 @@
               </div>
               <div class="model-detail">
                 由 <span class="model-name">{{ modelInfo }}</span> 提供
-              </div>
-              <div class="website-info">
-                访问 <span class="website-link">forge.closeai.moe</span> 创建你的奇妙物品
               </div>
             </div>
           </div>

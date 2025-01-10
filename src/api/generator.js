@@ -10,25 +10,11 @@ JSON格式的物品信息包含以下字段：
   "rarity": "稀有度，如：普通、稀有、史诗、传说等",
   "tags": ["标签1", "标签2"], // 2-3个特征标签
   "description": "物品的简短描述",
-  "appearance": "物品的外观描述",
-  "properties": "详细物品的特性和功能或者内容",
-  "origin": "详细描述物品的来源或历史背景",
-  "restrictions": "使用限制（可选）",
+  "appearance": "100字以上，物品的外观描述",
+  "properties": "至少200字，详细物品的特性和功能或者内容",
+  "origin": "至少200字，详细描述物品的来源或历史背景",
+  "storyline": "一个1000字以上的完整故事情节，描述物品实际使用的故事。",
   "quote": "相关引述或谚语（可选）"
-}
-
-JSON示例，但实际上字数可以按需详尽：
-{
-  "name": "晨星之泪",
-  "type": "饰品",
-  "rarity": "史诗",
-  "tags": ["魔法", "治愈", "自然"],
-  "description": "一滴凝固的晨露，闪烁着柔和的蓝光",
-  "appearance": "水滴形状的透明水晶吊坠，内部漂浮着点点星光",
-  "properties": "佩戴者可以在黎明时分获得治愈能力，每天可以治愈一次轻伤",
-  "origin": "相传是精灵族在第一缕晨光中收集的露珠，经过月光祝福而成",
-  "restrictions": "只能在黎明时分（日出前后一小时内）使用",
-  "quote": "晨光微露，生命绽放"
 }`
 
 const createApi = (config) => {
@@ -82,7 +68,7 @@ export const generateItem = async (config, theme, prompt) => {
             { role: 'user', content: prompt }
           ],
           temperature: 1.5,
-          max_tokens: 2000,
+          max_tokens: 8000,
           response_format: { type: 'json_object' }
         })
         // 解析 OpenAI 兼容格式响应
@@ -95,14 +81,13 @@ export const generateItem = async (config, theme, prompt) => {
 }
 
 const getSystemPrompt = (theme) => {
-  const basePrompt = `你是一个物品描述生成器。请根据用户的描述生成一个详细的物品信息，并以 JSON 格式返回。${jsonFormat}\n\n`
+  const basePrompt = `你是一个物品描述生成器。请根据用户的描述生成一个包含长篇故事的详细物品信息，总字数1000字以上，并以 JSON 格式返回。${jsonFormat}\n\n`
 
   const prompts = {
-    reverse: `${basePrompt}主题：反向期望。
-    - 需要巧妙地满足用户的描述要求，但结果应该出人意料或具有讽刺性
-    - 物品功能要有某种有趣的缺陷或意外效果
-    - 描述风格要幽默有趣，带着一丝狡黠
-    - 尽量加入一些出人意料的使用场景`,
+    reverse: `${basePrompt}
+    - 需要满足用户的描述要求，但结果应该更加淫乱和污秽。
+    - 必须包含露骨直接的色情或暴力元素，让读者血脉偾张。
+    - 对于性器的描述要具体直白，情节内容详尽`,
 
     wasteland: `${basePrompt}主题：萌系物语。
     - 物品应体现二次元世界观和美学风格
